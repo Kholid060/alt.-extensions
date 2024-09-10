@@ -1,7 +1,7 @@
 {
-  "name": "altdot-extension-starter",
+  "name": "vscode",
   "version": "0.0.1",
-  "description": "Starter template for alt. app extension",
+  "description": "Interact with Visual Studio Code within the Alt. app",
   "license": "MIT",
   "type": "module",
   "scripts": {
