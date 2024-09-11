@@ -1,0 +1,1 @@
+{"icon":"kill-process","version":"0.0.1","title":"Kill Process","author":"kholid060","description":"Kill running process","commands":[{"name":"kill-process","title":"Kill Process","type":"view"}],"categories":["Applications","Productivity"],"permissions":["shell","clipboard","childProcess"],"name":"kill-process","$apiVersion":"*"}
