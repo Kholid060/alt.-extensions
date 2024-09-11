@@ -22,7 +22,7 @@
     "typescript-eslint": "^7.17.0"
   },
   "dependencies": {
-    "@altdot/extension": "link:..\\command\\packages\\extension",
+    "@altdot/extension": "link:..\\..\\..\\command\\packages\\extension",
     "@types/node": "^22.5.4",
     "react": "^18.3.1",
     "remove": "^0.1.5"

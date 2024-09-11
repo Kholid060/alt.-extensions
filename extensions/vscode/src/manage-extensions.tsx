@@ -11,7 +11,12 @@ function RecentProjects() {
       value: extension.id,
       title: extension.displayName,
       icon: extension.icon ? (
-        <img src={`image-preview://${encodeURIComponent(extension.icon)}`} />
+        <img
+          loading="lazy"
+          src={_extension.runtime.getImageFileURL(
+            encodeURIComponent(extension.icon),
+          )}
+        />
       ) : (
         <UiList.Icon icon={UiIcons.Atom} />
       ),
