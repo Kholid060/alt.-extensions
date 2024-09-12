@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@altdot/extension": "link:..\\..\\..\\command\\packages\\extension",
+    "@fast-csv/format": "^5.0.0",
     "cheerio": "^1.0.0",
     "react": "^18.3.1",
     "write-excel-file": "^2.0.9"

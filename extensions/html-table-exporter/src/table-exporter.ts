@@ -3,37 +3,21 @@ import {
   CommandLaunchBy,
   CommandLaunchContext,
 } from '@altdot/extension';
-import { load as loadHTML } from 'cheerio';
 import {
-  TableData,
-  TableExporterArguments,
   TableExportType,
+  TableExporterArguments,
 } from './interfaces/table.interface';
 import { ConfigTableExporter } from './interfaces/config.interface';
 import { homedir } from 'os';
 import * as path from 'path';
 import TableConverter from './utils/TableConverter';
+import tableHTMLToJSON from './utils/tableHTMLToJSON';
 
 const TABLE_FILE_EXTENSION: Record<TableExportType, string> = {
   csv: 'csv',
   json: 'json',
   excel: 'xlsx',
 };
-
-function tableHTMLToJSON(html: string): TableData {
-  const tableData: TableData = [];
-
-  const $ = loadHTML(html);
-  const rows = $('tr');
-  rows.each((index, row) => {
-    const { cols } = $(row).extract({
-      cols: ['th,td'],
-    });
-    tableData.push(cols);
-  });
-
-  return tableData;
-}
 
 async function getConfig(
   tabUrl: string,
