@@ -1,7 +1,7 @@
 {
   "name": "hash-generator",
   "version": "0.0.1",
-  "description": "Starter template for alt. app extension",
+  "description": "Generate hash (SHA1, SHA256, SHA512, or MD5) with HMAC option",
   "license": "MIT",
   "type": "module",
   "scripts": {
