@@ -1,0 +1,1 @@
+{"icon":"google-drive","version":"1.0.0","title":"Google Drive","author":"kholid060","description":"List Google Drive files","commands":[{"name":"search","title":"Search Google Drive","type":"view"}],"categories":["Applications"],"permissions":["shell","clipboard"],"name":"google-drive","$apiVersion":"*"}
