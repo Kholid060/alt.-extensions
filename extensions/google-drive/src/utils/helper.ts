@@ -11,3 +11,7 @@ export function debounce<T extends unknown[]>(
     }, delay);
   };
 }
+
+export function getFileLink(fileId: string) {
+  return `https://drive.google.com/file/d/${fileId}/view`;
+}

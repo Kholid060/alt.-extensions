@@ -1,6 +1,8 @@
 import type { _extension } from '@altdot/extension';
 import { clientId, credential } from './credential';
 
+let tokenCache: _extension.OAuth.OAuthTokenStorageValue | null = null;
+
 async function refreshToken(
   refreshToken: string,
 ): Promise<_extension.OAuth.OAuthTokenStorageValue> {
@@ -17,14 +19,14 @@ async function refreshToken(
     },
   });
   const body = await response.json();
-  await credential.setToken(body);
+  tokenCache = await credential.setToken(body);
 
   return body;
 }
 
 export async function getToken(): Promise<_extension.OAuth.OAuthTokenStorageValue> {
-  let token = await credential.getToken();
-  if (token) {
+  let token = tokenCache ?? (await credential.getToken());
+  if (token && token.refreshToken) {
     if (Date.now() >= token.expiresTimestamp) {
       return refreshToken(token.refreshToken);
     }
@@ -51,6 +53,8 @@ export async function getToken(): Promise<_extension.OAuth.OAuthTokenStorageValu
   });
   const body: _extension.OAuth.OAuthTokenResponse = await response.json();
   token = await credential.setToken(body);
+
+  tokenCache = token;
 
   return token;
 }

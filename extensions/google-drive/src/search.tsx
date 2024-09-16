@@ -6,17 +6,14 @@ import {
   _extension,
   CommandLaunchContext,
 } from '@altdot/extension';
-import { debounce } from './utils/helper';
+import { debounce, getFileLink } from './utils/helper';
 import DataStorage from './utils/DataStorage';
 import GDriveAPI from './utils/GDriveAPI';
 import {
   GDFileMetadata,
   GDFileMetadataStorage,
 } from './interface/gdrive.interface';
-
-function getFileLink(fileId: string) {
-  return `https://drive.google.com/file/d/${fileId}/view`;
-}
+import { getToken } from './utils/get-token';
 
 _extension.ui.searchPanel.updatePlaceholder(
   'Search Google Drive files or folders',
@@ -92,7 +89,6 @@ function SearchGoogleDrive({ fallbackSearch }: CommandLaunchContext) {
       }
 
       await DataStorage.setRecentFiles(updatedRecentFiles);
-      console.log(updatedRecentFiles);
       setRecentFiles(updatedRecentFiles);
     } catch (error) {
       console.error(error);
@@ -123,10 +119,16 @@ function SearchGoogleDrive({ fallbackSearch }: CommandLaunchContext) {
       }
     };
 
-    _extension.ui.searchPanel.onChanged.addListener(debounce(searchFiles, 500));
+    const offListener = _extension.ui.searchPanel.onChanged.addListener(
+      debounce(searchFiles, 500),
+    );
     if (fallbackSearch) searchFiles(fallbackSearch);
 
     DataStorage.getRecentFiles().then(setRecentFiles);
+
+    return () => {
+      offListener();
+    };
   }, []);
 
   return (
@@ -147,4 +149,20 @@ function SearchGoogleDrive({ fallbackSearch }: CommandLaunchContext) {
   );
 }
 
-export default SearchGoogleDrive;
+function ensureAuth(Component: typeof SearchGoogleDrive) {
+  return (context: CommandLaunchContext) => {
+    const [isAuth, setIsAuth] = useState<boolean>(false);
+
+    useEffect(() => {
+      getToken().finally(() => {
+        setIsAuth(true);
+      });
+    }, []);
+
+    if (!isAuth) return null;
+
+    return <Component {...context} />;
+  };
+}
+
+export default ensureAuth(SearchGoogleDrive);

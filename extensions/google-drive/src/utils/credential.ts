@@ -8,7 +8,8 @@ export const credential = _extension.oAuth.createPKCE({
     clientId,
     redirectMethod: OAuthRedirect.AppUrl,
     authorizeUrl: 'https://accounts.google.com/o/oauth2/v2/auth',
-    scope: 'https://www.googleapis.com/auth/drive.metadata.readonly',
+    scope:
+      'https://www.googleapis.com/auth/drive.metadata.readonly https://www.googleapis.com/auth/drive.file',
   },
   key: 'google-drive',
   icon: 'google-drive',
