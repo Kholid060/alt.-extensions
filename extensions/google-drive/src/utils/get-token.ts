@@ -21,7 +21,7 @@ async function refreshToken(
   const body = await response.json();
   tokenCache = await credential.setToken(body);
 
-  return body;
+  return tokenCache;
 }
 
 export async function getToken(): Promise<_extension.OAuth.OAuthTokenStorageValue> {
@@ -56,5 +56,5 @@ export async function getToken(): Promise<_extension.OAuth.OAuthTokenStorageValu
 
   tokenCache = token;
 
-  return token;
+  return tokenCache;
 }

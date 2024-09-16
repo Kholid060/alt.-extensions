@@ -8,13 +8,10 @@ import * as fs from 'fs/promises';
 import GDriveAPI from './utils/GDriveAPI';
 import { lookup } from 'mime-types';
 import * as path from 'path';
+import fileAction from './utils/fileAction';
 import { getFileLink } from './utils/helper';
 
 const MAX_FILE_SIZE_MB = 1024 * 1024 * 5; // 5 MB
-
-interface Config {
-  openOnceDone?: boolean;
-}
 
 async function UploadFile({
   args,
@@ -53,14 +50,7 @@ async function UploadFile({
 
     if (isInWorkflow) return result;
 
-    const config = await _extension.runtime.config.getValues<Config>('command');
-    if (config.openOnceDone) {
-      await _extension.shell.openURL(getFileLink(result.id));
-    }
-
-    _extension.ui.showToast({
-      title: 'File uploaded',
-    });
+    await fileAction(getFileLink('drive', result.id));
 
     return result;
   } finally {

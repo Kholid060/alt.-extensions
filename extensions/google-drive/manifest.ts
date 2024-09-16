@@ -9,6 +9,24 @@ const config: ExtensionManifest = {
   title: 'Google Drive',
   categories: ['Applications'],
   description: 'List Google Drive files',
+  config: [
+    {
+      type: 'select',
+      required: true,
+      defaultValue: 'copy-clipboard',
+      options: [
+        { label: 'Copy to clipboard', value: 'copy-clipboard' },
+        { label: 'Open in browser', value: 'open-in-browser' },
+        {
+          label: 'Copy to clipboard and open in browser',
+          value: 'copy-open-in-browser',
+        },
+      ],
+      name: 'fileAction',
+      title: 'File action',
+      description: 'Action to do once the file is created or uploaded',
+    },
+  ],
   commands: [
     {
       type: 'view',
@@ -30,20 +48,38 @@ const config: ExtensionManifest = {
           description: 'Path of the file to upload',
         },
       ],
-      config: [
+    },
+    {
+      type: 'action',
+      icon: 'google-docs',
+      name: 'create-google-docs',
+      title: 'Create Google Docs',
+      description: 'Create a new Google Docs file',
+      arguments: [
         {
-          type: 'toggle',
-          required: false,
-          defaultValue: false,
-          name: 'openOnceDone',
-          title: 'Open file once done',
-          description:
-            "Open the uploaded file in the browser once it's done uploading",
+          name: 'title',
+          title: 'Title',
+          type: 'input:text',
+          placeholder: 'Untitled',
+        },
+      ],
+    },
+    {
+      type: 'action',
+      icon: 'google-sheets',
+      name: 'create-google-sheets',
+      title: 'Create Google Sheet',
+      description: 'Create a new Google Sheets spreadsheet file',
+      arguments: [
+        {
+          name: 'title',
+          title: 'Title',
+          type: 'input:text',
+          placeholder: 'Untitled',
         },
       ],
     },
   ],
-  permissions: ['shell', 'clipboard'],
 };
 
 export default config;

@@ -2,12 +2,18 @@ import {
   GDFileMetadata,
   GDFetchFilesResult,
 } from '../interface/gdrive.interface';
+import {
+  GoogleDocsFile,
+  GoogleSheetFile,
+} from '../interface/google-workspace.interface';
 import { getToken } from './get-token';
 
-const API_BASE_URL = 'https://www.googleapis.com/drive/v3';
-const API_UPLOAD_BASE_URL = 'https://www.googleapis.com/upload/drive/v3';
-
-let accessTokenCache = '';
+const API_BASE_URL = {
+  drive: 'https://www.googleapis.com/drive/v3',
+  'google-docs': 'https://docs.googleapis.com/v1/documents',
+  'drive-upload': 'https://www.googleapis.com/upload/drive/v3',
+  'google-sheets': 'https://sheets.googleapis.com/v4/spreadsheets',
+} as const;
 
 export interface UploadFileMediaDetail {
   file: Buffer;
@@ -18,14 +24,12 @@ export interface UploadFileMediaDetail {
 class GDriveAPI {
   static async authorizeFetch<T = unknown>(
     path: string,
-    init?: RequestInit & { isUpload?: boolean },
+    init?: RequestInit & { apiType?: keyof typeof API_BASE_URL },
   ) {
-    const url = new URL(
-      `${init?.isUpload ? API_UPLOAD_BASE_URL : API_BASE_URL}${path}`,
-    );
+    const url = new URL(`${API_BASE_URL[init?.apiType ?? 'drive']}${path}`);
 
-    if (!accessTokenCache) accessTokenCache = (await getToken()).accessToken;
-    url.searchParams.set('access_token', accessTokenCache);
+    const { accessToken } = await getToken();
+    url.searchParams.set('access_token', accessToken);
 
     const response = await fetch(url, init);
     const result = await response.json();
@@ -68,10 +72,29 @@ class GDriveAPI {
     return this.authorizeFetch<GDFileMetadata>('/files?uploadType=multipart', {
       body: payload,
       method: 'POST',
-      isUpload: true,
+      apiType: 'drive-upload',
       headers: {
         'Content-Type': 'multipart/form-data; boundary=' + boundary,
       },
+    });
+  }
+
+  static createGoogleDocs(title?: string): Promise<GoogleDocsFile> {
+    return this.authorizeFetch<GoogleDocsFile>('', {
+      method: 'POST',
+      apiType: 'google-docs',
+      body: JSON.stringify({
+        title,
+      }),
+    });
+  }
+  static createGoogleSheets(title?: string) {
+    return this.authorizeFetch<GoogleSheetFile>('', {
+      method: 'POST',
+      apiType: 'google-sheets',
+      body: JSON.stringify({
+        properties: { title },
+      }),
     });
   }
 }
