@@ -43,13 +43,15 @@ function SearchGoogleDrive({ fallbackSearch }: CommandLaunchContext) {
         title: 'Copy file link',
         icon: UiIcons.Clipboard,
         onAction() {
-          _extension.clipboard.write('text', getFileLink(file.id)).then(() => {
-            const toast = _extension.ui.createToast({
-              type: 'success',
-              title: 'Copied to clipboard',
+          _extension.clipboard
+            .write('text', getFileLink('drive', file.id))
+            .then(() => {
+              const toast = _extension.ui.createToast({
+                type: 'success',
+                title: 'Copied to clipboard',
+              });
+              toast.show();
             });
-            toast.show();
-          });
         },
       },
     ],
@@ -93,7 +95,7 @@ function SearchGoogleDrive({ fallbackSearch }: CommandLaunchContext) {
     } catch (error) {
       console.error(error);
     } finally {
-      _extension.shell.openURL(getFileLink(fileId));
+      _extension.shell.openURL(getFileLink('drive', fileId));
     }
   }
 

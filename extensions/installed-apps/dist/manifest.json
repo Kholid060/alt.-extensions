@@ -1,0 +1,1 @@
+{"icon":"installed-apps","version":"0.0.1","title":"Installed Apps","author":"kholid060","description":"Search installed apps","commands":[{"name":"search-apps","title":"Search Installed Apps","type":"view"}],"categories":["Applications"],"name":"installed-apps","$apiVersion":"*"}
