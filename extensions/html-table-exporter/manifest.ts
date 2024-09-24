@@ -24,7 +24,7 @@ const manifest: ExtensionManifest = {
         {
           required: false,
           type: 'toggle',
-          defaultValue: false,
+          defaultValue: true,
           name: 'showWhenDone',
           title: 'Show file when done',
           description:
