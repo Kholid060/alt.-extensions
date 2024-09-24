@@ -1,5 +1,5 @@
 import { Converter } from 'convert-units';
-import { convertUnits } from '../lib/conver-units';
+import { convertUnits } from '../lib/convert-units';
 
 const CONNECTOR_WORDS = new Set(['to', 'as', 'in']);
 
@@ -27,11 +27,11 @@ function convertUnitValue(text: string): UnitToken {
   converter = converter.from(fromUnit);
 
   let toUnit = words.at(2);
-  if (!toUnit || !CONNECTOR_WORDS.has(toUnit)) {
-    return { value, fromUnit, converter };
-  }
+  if (!toUnit) return { value, fromUnit, converter };
 
-  toUnit = converter.getUnit(toUnit)?.abbr;
+  toUnit = CONNECTOR_WORDS.has(toUnit)
+    ? undefined
+    : converter.getUnit(toUnit)?.abbr;
   if (toUnit && !words.at(3)) return { value, fromUnit, converter, toUnit };
 
   toUnit = words.at(3);

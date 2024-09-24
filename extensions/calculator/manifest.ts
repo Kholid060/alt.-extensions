@@ -7,7 +7,7 @@ const manifest: ExtensionManifest = {
   description,
   title: 'Calculator',
   author: 'kholid060',
-  categories: ['Other', 'Productivity'],
+  categories: ['Productivity'],
   icon: 'calculator',
   commands: [
     {
