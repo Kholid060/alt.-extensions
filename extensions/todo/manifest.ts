@@ -8,7 +8,7 @@ const manifest: ExtensionManifest = {
   author: 'kholid060',
   categories: ['Productivity'],
   icon: 'todo',
-  version: '1.0.0',
+  version: '0.0.1',
   commands: [
     {
       type: 'view',
