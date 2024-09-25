@@ -1,0 +1,1 @@
+{"icon":"todo","version":"1.0.0","title":"To-Do","author":"username","description":"Create To-Do list","commands":[{"name":"todo-list","title":"To-Do List","type":"view"}],"categories":["Other"],"permissions":["storage"],"name":"to-do","$apiVersion":"*"}

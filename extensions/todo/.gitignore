@@ -2,9 +2,11 @@
 node_modules
 .turbo
 *.log
-dist
+dist/**/*
 *.local
 .env
 .cache
 .pnp.*
 .yarn
+
+!dist/manifest.json
