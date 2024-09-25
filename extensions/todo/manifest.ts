@@ -1,9 +1,10 @@
 import { ExtensionManifest } from '@altdot/extension';
+import { name, description } from './package.json';
 
 const manifest: ExtensionManifest = {
-  name: 'to-do',
+  name,
+  description,
   title: 'To-Do',
-  description: 'Create To-Do list',
   author: 'kholid060',
   categories: ['Productivity'],
   icon: 'todo',
