@@ -4,8 +4,8 @@ const manifest: ExtensionManifest = {
   name: 'to-do',
   title: 'To-Do',
   description: 'Create To-Do list',
-  author: 'username',
-  categories: ['Other'],
+  author: 'kholid060',
+  categories: ['Productivity'],
   icon: 'todo',
   version: '1.0.0',
   commands: [

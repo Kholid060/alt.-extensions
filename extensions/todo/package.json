@@ -1,7 +1,7 @@
 {
-  "name": "altdot-extension-starter",
+  "name": "todo",
   "version": "0.0.1",
-  "description": "Starter template for alt. app extension",
+  "description": "A simple todo list",
   "license": "MIT",
   "type": "module",
   "scripts": {
