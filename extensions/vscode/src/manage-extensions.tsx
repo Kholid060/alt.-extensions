@@ -13,7 +13,7 @@ function RecentProjects() {
       icon: extension.icon ? (
         <img
           loading="lazy"
-          src={_extension.runtime.getImageFileURL(
+          src={_extension.runtime.getFileThumbnailURL(
             encodeURIComponent(extension.icon),
           )}
         />
